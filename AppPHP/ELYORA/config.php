@@ -2,7 +2,7 @@
 $host = 'localhost';     
 $dbname = 'agence_voyage';
 $username = 'root';       
-$password = '';            
+$password = 'XYZA';            
 try {
     // PDO is a secure way to interact with databases from sql injection 
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
