@@ -20,11 +20,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 // test test
-?>
-
-
 // RAGOps test marker
 function ragopsHealthCheck()
 {
     return "RAGOPS_PHP_TEST_2026";
 }
+
+?>
