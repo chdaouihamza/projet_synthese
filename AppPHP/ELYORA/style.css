@@ -102,7 +102,7 @@ nav a:hover {
     object-fit: cover;
     border-radius: 18px;
     margin-bottom: 1rem;
-    background-color: #e9e2d4;
+    background-color: #4CAF50; /* RAGOps test - changed color */
 }
 
 /* Form Styles */
