@@ -1,0 +1,8 @@
+chromadb
+llama-index
+llama-index-vector-stores-chroma
+llama-index-embeddings-huggingface
+llama-index-llms-google-genai
+llama-index-readers-github
+python-dotenv
+requests
