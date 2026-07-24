@@ -15,6 +15,8 @@ public:
     void addRoom(int id_hotel, const std::string& type, double prix);
     void removeRoom(int id_chambre);
     void toggleAvailability(int id_chambre, bool available);
+    void salma_test(int a, int b);
+     
     void listAllRooms() const;
 
 private:
