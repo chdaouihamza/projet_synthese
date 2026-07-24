@@ -25,6 +25,10 @@ void Admin::removeRoom(int id_chambre) {
     else
         std::cout << "[Error] Chambre #" << id_chambre << " not found.\n";
 }
+void Admin::salma_test(int a, int b){
+if (a=1)
+{std::cout << "salma a gagné" <<endl;}
+return 0;}
 
 void Admin::toggleAvailability(int id_chambre, bool available) {
     if (database.updateRoomAvailability(id_chambre, available))
