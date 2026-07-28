@@ -46,7 +46,6 @@ def char_idx_to_line(text: str, char_idx: int) -> int:
 
 def fetch_file_content(path: str) -> str | None:
     """Récupère le contenu d'un fichier via l'API GitHub (contenu à jour, branche main)."""
-    def fetch_file_content(path: str) -> str | None:
     token = os.getenv("GITHUB_TOKEN_RAG") or configu.GITHUB_TOKEN
     encoded_path = quote(path)
     print(f"  [DEBUG] path brut: {repr(path)}")
