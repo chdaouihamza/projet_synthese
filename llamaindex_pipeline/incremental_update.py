@@ -46,9 +46,13 @@ def char_idx_to_line(text: str, char_idx: int) -> int:
 
 def fetch_file_content(path: str) -> str | None:
     """Récupère le contenu d'un fichier via l'API GitHub (contenu à jour, branche main)."""
+    def fetch_file_content(path: str) -> str | None:
     token = os.getenv("GITHUB_TOKEN_RAG") or configu.GITHUB_TOKEN
     encoded_path = quote(path)
+    print(f"  [DEBUG] path brut: {repr(path)}")
+    print(f"  [DEBUG] path encode: {repr(encoded_path)}")
     url = f"https://api.github.com/repos/{configu.REPO_OWNER}/{configu.REPO_NAME}/contents/{encoded_path}"
+    print(f"  [DEBUG] URL complete: {url}")
     headers = {"Accept": "application/vnd.github+json", "Authorization": f"Bearer {token}"}
     resp = requests.get(url, headers=headers, params={"ref": configu.BRANCH}, timeout=20)
     if not resp.ok:
@@ -92,7 +96,7 @@ def main():
 
     for line in lines:
         status, path = line.split("\t", 1)
-        print(f"[{status}] {path}")
+        path = path.strip()  
 
         collection.delete(where={"file_path": path})
 
