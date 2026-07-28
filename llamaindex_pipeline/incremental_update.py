@@ -14,7 +14,11 @@ import sys
 import os
 import base64
 import requests
-
+import sys
+import os
+import base64
+import requests
+from urllib.parse import quote
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import configu
 
@@ -43,7 +47,8 @@ def char_idx_to_line(text: str, char_idx: int) -> int:
 def fetch_file_content(path: str) -> str | None:
     """Récupère le contenu d'un fichier via l'API GitHub (contenu à jour, branche main)."""
     token = os.getenv("GITHUB_TOKEN_RAG") or configu.GITHUB_TOKEN
-    url = f"https://api.github.com/repos/{configu.REPO_OWNER}/{configu.REPO_NAME}/contents/{path}"
+    encoded_path = quote(path)
+    url = f"https://api.github.com/repos/{configu.REPO_OWNER}/{configu.REPO_NAME}/contents/{encoded_path}"
     headers = {"Accept": "application/vnd.github+json", "Authorization": f"Bearer {token}"}
     resp = requests.get(url, headers=headers, params={"ref": configu.BRANCH}, timeout=20)
     if not resp.ok:
