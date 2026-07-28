@@ -55,8 +55,24 @@ jobs:
           git config user.email "rag-bot@users.noreply.github.com"
           cd ../chroma-index-wt
           git remote set-url origin https://x-access-token:${RAG_GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+
           rm -rf llamaindex_pipeline/storage
           cp -r ../$(basename ${{ github.workspace }})/llamaindex_pipeline/storage llamaindex_pipeline/storage
           git add llamaindex_pipeline/storage
           git commit -m "Mise à jour auto de l'index RAG (commit ${{ github.sha }})" || echo "Rien à commit"
-          git push origin HEAD:chroma-index
+
+          # Retry avec pull avant push, jusqu'à 5 tentatives
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:chroma-index; then
+              echo "Push réussi (tentative $i)"
+              break
+            fi
+            echo "Push rejeté (tentative $i), on récupère les changements distants..."
+            git fetch origin chroma-index
+            git reset --soft origin/chroma-index
+            rm -rf llamaindex_pipeline/storage
+            cp -r ../$(basename ${{ github.workspace }})/llamaindex_pipeline/storage llamaindex_pipeline/storage
+            git add llamaindex_pipeline/storage
+            git commit -m "Mise à jour auto de l'index RAG (commit ${{ github.sha }})" || echo "Rien à commit"
+            sleep $((RANDOM % 5 + 1))
+          done
